@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio | Rodrigo da Costa Mendes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root{
+      --primary-font: 'Inter', sans-serif;
+      --secondary-font: 'Open Sans', sans-serif;
+
+      --color-primary-btn: #5fb899;
+      --color-primary-btn-hover: #3ca68d;
+      --color-tertiary-btn: #b88f5f;
+      --color-tertiary-btn-hover: #a16b3d;
+
+      --glow-primary: #2a6b55;
+
+      --text-light: #f0f0f0;
+      --text-lighter: #e0e0e0;
+      --text-muted: #b0b8c4;
+
+      --card-bg: rgba(0, 0, 0, 0.4);
+      --border-color: rgba(255, 255, 255, 0.18);
+      --background-dark: #0d1117;
+
+      --angle: -15deg;
+
+      /* Glows */
+      --glow-design: rgba(227, 179, 65, 0.5);
+      --glow-dev: rgba(88, 166, 255, 0.5);
+      --glow-infra: rgba(126, 231, 135, 0.5);
+    }
+
+    *{ margin:0; padding:0; box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+
+    body{
+      font-family: var(--primary-font);
+      background-color: var(--background-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .background-image{
+      position: fixed;
+      top:0; left:0;
+      width:100vw; height:100vh;
+      object-fit: cover;
+      object-position: center center;
+      z-index:-2;
+    }
+
+    body::before{
+      content:'';
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: linear-gradient(180deg, rgba(13, 17, 23, 0.85) 0%, rgba(13, 17, 23, 0.65) 100%);
+      z-index:-1;
+    }
+
+    section{
+      min-height:100vh;
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      position:relative;
+      padding: 4rem 0;
+    }
+
+    .content-wrapper{
+      width:100%;
+      max-width:1400px;
+      margin:0 auto;
+      padding:0 2rem;
+    }
+
+    /* MENU DE NAVEGAÇÃO */
+    .nav-menu{
+      position: fixed;
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+      z-index: 1000;
+      transition: width 0.3s ease;
+      width: 16px;
+    }
+
+    .nav-menu:hover{ width: auto; }
+
+    .nav-menu ul{
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .nav-menu li{
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .nav-menu a{
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .nav-menu a .nav-dot{
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .nav-menu a:hover .nav-dot,
+    .nav-menu a.active .nav-dot{
+      background: var(--color-primary-btn);
+      border-color: var(--color-primary-btn);
+      transform: scale(1.3);
+      box-shadow: 0 0 15px var(--color-primary-btn);
+    }
+
+    .nav-menu a .nav-label{
+      background: rgba(0, 0, 0, 0.9);
+      color: var(--text-light);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      font-size: 0.85rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      pointer-events: none;
+      border: 1px solid var(--border-color);
+      font-weight: 500;
+    }
+
+    .nav-menu:hover a .nav-label{
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* HERO */
+    .profile-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--color-primary-btn);
+      box-shadow: 0 0 20px rgba(95, 184, 153, 0.5);
+      margin-bottom: 20px;
+    }
+
+    .main-hero-section{ align-items:center; text-align:center; }
+
+    .content-overlay{
+      position:relative;
+      z-index:1;
+      padding:40px 50px;
+      background-color: rgba(0,0,0,0.4);
+      border-radius:12px;
+      max-width:900px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+      border: 1px solid var(--border-color);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+    }
+
+    .content-overlay h1{
+      font-weight:800;
+      font-size:3rem;
+      margin-bottom:0.2em;
+      text-shadow: 0 0 15px rgba(0,0,0,0.9);
+      color: var(--color-primary-btn);
+    }
+
+    .content-overlay h2{
+      font-weight:600;
+      font-size:1.5rem;
+      margin-bottom:1rem;
+      color: var(--text-light);
+    }
+
+    .content-overlay p{
+      font-family: var(--secondary-font);
+      color: var(--text-lighter);
+      font-size:1.1rem;
+      margin-bottom:2em;
+      max-width: 680px;
+      line-height: 1.6;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:14px 30px;
+      color:white;
+      text-decoration:none;
+      border-radius:8px;
+      font-weight:600;
+      transition: all 0.3s ease;
+      margin:8px 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .btn:hover{ transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+    .btn-01{ background-color: var(--color-primary-btn); }
+    .btn-01:hover{ background-color: var(--color-primary-btn-hover); }
+
+    .scroll-indicator{
+      position:absolute;
+      bottom:2rem;
+      left:50%;
+      transform: translateX(-50%);
+      color: var(--text-muted);
+      font-size:0.9rem;
+      text-decoration:none;
+      animation: bounce-down 2s infinite;
+      z-index:10;
+    }
+    @keyframes bounce-down{
+      0%, 20%, 50%, 80%, 100%{ transform: translate(-50%, 0); }
+      40%{ transform: translate(-50%, -10px); }
+      60%{ transform: translate(-50%, -5px); }
+    }
+
+    /* SEÇÃO SOBRE */
+    .sobre-content{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .sobre-content h2{
+      font-size: 2.2rem;
+      color: var(--color-primary-btn);
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .sobre-content p{
+      font-family: var(--secondary-font);
+      color: var(--text-lighter);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      text-align: justify;
+      font-size: 1.1rem;
+    }
+
+    .mvv-grid{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin: 3rem 0 1rem 0;
+    }
+
+    .mvv-card{
+      background: rgba(95, 184, 153, 0.05);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .mvv-card:hover{
+      background: rgba(95, 184, 153, 0.1);
+      transform: translateY(-5px);
+    }
+
+    .mvv-card .mvv-icon{
+      font-size: 2.5rem;
+      color: var(--color-primary-btn);
+      margin-bottom: 1rem;
+    }
+
+    .mvv-card h3{ margin-bottom: 1rem; color: var(--color-primary-btn); }
+    .mvv-card p{ font-size: 0.95rem; text-align: center; }
+
+    /* MÓDULOS / CARDS */
+    .section-title{ font-size: 2.2rem; font-weight: 800; text-align:center; }
+    .section-subtitle{ font-family: var(--secondary-font); color: var(--text-muted); font-size: 1.1rem; margin-top: 0.5rem; text-align:center; }
+
+    .modules-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .module-card{
+      position:relative;
+      background: var(--card-bg);
+      border:1px solid var(--border-color);
+      border-radius:12px;
+      padding:2.5rem 2rem;
+      height:100%;
+      transform: skewX(var(--angle));
+      transform-origin: bottom left;
+      transition: transform 0.4s ease;
+    }
+
+    .module-card:hover{
+      transform: skewX(0deg) translateY(-10px);
+    }
+
+    .card-content-wrapper{
+      transform: skewX(calc(var(--angle) * -1));
+      transition: transform 0.4s ease;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+    }
+    .module-card:hover .card-content-wrapper{ transform: skewX(0deg); }
+
+    .card-header{ display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; }
+    .card-icon{
+      font-size:1.5rem; width:50px; height:50px; display:flex; align-items:center; justify-content:center;
+      border-radius:10px; background: rgba(255,255,255,0.05); border:1px solid var(--border-color);
+    }
+    .card-header h2{ font-size:1.3rem; color: var(--text-light); }
+
+    .card-content ul{
+      list-style: none;
+      font-family: var(--secondary-font);
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+    .card-content ul li::before{
+      content: "•"; color: var(--color-primary-btn); font-weight: bold; display: inline-block; width: 1em; margin-left: -1em;
+    }
+    .card-content ul li{ padding-left: 1em; margin-bottom: 0.5rem; }
+
+    .module-card[data-theme="design"] .card-icon{ color:#e3b341; }
+    .module-card[data-theme="dev"] .card-icon{ color:#58a6ff; }
+    .module-card[data-theme="infra"] .card-icon{ color:#7ee787; }
+
+    @media (max-width: 768px){
+      .content-overlay{ padding:30px 20px; }
+      .content-overlay h1{ font-size:2rem; }
+      .mvv-grid{ grid-template-columns: 1fr; }
+      .module-card{ transform: skewX(0); padding: 2rem 1.5rem; }
+      .card-content-wrapper{ transform: skewX(0); }
+      .nav-menu{ right: 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav-menu" id="navMenu">
+    <ul>
+      <li><a href="#main-hero" class="active"><span class="nav-label">Início</span><span class="nav-dot"></span></a></li>
+      <li><a href="#sobre-mim"><span class="nav-label">Sobre Mim</span><span class="nav-dot"></span></a></li>
+      <li><a href="#portfolio-design"><span class="nav-label">Design & Arte</span><span class="nav-dot"></span></a></li>
+      <li><a href="#portfolio-dev"><span class="nav-label">Desenvolvimento</span><span class="nav-dot"></span></a></li>
+      <li><a href="#portfolio-infra"><span class="nav-label">Infraestrutura</span><span class="nav-dot"></span></a></li>
+      <li><a href="#contato"><span class="nav-label">Contato</span><span class="nav-dot"></span></a></li>
+    </ul>
+  </nav>
+
+  <section id="main-hero" class="main-hero-section">
+      <div class="content-overlay">
+      <img src="rodrigo.jpeg" alt="Foto de Rodrigo" class="profile-photo">
+      <h1>Rodrigo da Costa Mendes</h1>
+      <h2>Arte Finalista e Estudante de ADS | Soluções Criativas e Tecnológicas</h2>
+      <p>Unindo a criatividade da artefinalização com a lógica da programação. Estudante de Análise e Desenvolvimento de Sistemas em transição para o mercado de tecnologia.</p>
+      <div class="buttons-container">
+        <a href="#sobre-mim" class="btn btn-01">Conheça minha trajetória</a>
+      </div>
+    </div>
+    <a href="#sobre-mim" class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i> Explorar Portfólio</a>
+  </section>
+
+  <section id="sobre-mim">
+    <div class="content-wrapper">
+      <div class="sobre-content">
+        <h2>Sobre Mim</h2>
+        <p>Sou artefinalista com sólida experiência em produção gráfica, especializado em ferramentas como o Corel Draw. Ao longo da minha carreira, desenvolvi um olhar apurado para a estética, criação de arte, banners, adesivos e comunicação em grandes formatos.</p>
+        <p>Atualmente, estou no 1º semestre do curso de Análise e Desenvolvimento de Sistemas (EAD), em plena transição para a área de tecnologia. Meu objetivo é aplicar a minha capacidade criativa na construção de soluções digitais. Para isso, tenho focado meus estudos em lógica de programação e linguagens estruturadas, preparando-me ativamente para a minha primeira oportunidade de estágio no setor.</p>
+
+        <div class="mvv-grid">
+          <div class="mvv-card">
+            <div class="mvv-icon"><i class="fa-solid fa-pen-nib"></i></div>
+            <h3>Criatividade Visão</h3>
+            <p>Especialista em Corel Draw. Criação de arte, outdoors e materiais gráficos com foco em alto impacto.</p>
+          </div>
+          <div class="mvv-card">
+            <div class="mvv-icon"><i class="fa-solid fa-code"></i></div>
+            <h3>Lógica e Código</h3>
+            <p>Estudante de ADS. Foco no domínio de linguagens como C e Python, utilizando o VS Code para resolução de problemas.</p>
+          </div>
+          <div class="mvv-card">
+            <div class="mvv-icon"><i class="fa-solid fa-network-wired"></i></div>
+            <h3>Hardware e Redes</h3>
+            <p>Conhecimento técnico em montagem, manutenção de micros e formatação, além de cabeamento e infraestrutura de rede.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio-design">
+    <div class="content-wrapper">
+      <div class="content-overlay" style="margin: 0 auto 2rem auto; text-align:center; padding: 20px;">
+        <div class="section-title">Design Gráfico & Artefinalização</div>
+        <div class="section-subtitle">Projetos visuais e comunicação impressa.</div>
+      </div>
+      <div class="modules-grid">
+        <article class="module-card" data-theme="design">
+          <div class="card-content-wrapper">
+            <div class="card-header"><div class="card-icon"><i class="fa-solid fa-bezier-curve"></i></div><h2>Identidade Visual</h2></div>
+            <div class="card-content">
+              <ul>
+                <li>Criação de arte e paletas de cores.</li>
+                <li>Projeto Destaque: Logo do time "Maringá", inspirada no design do Barcelona, com elementos verdes em homenagem à arborização local.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <article class="module-card" data-theme="design">
+          <div class="card-content-wrapper">
+            <div class="card-header"><div class="card-icon"><i class="fa-solid fa-print"></i></div><h2>Produção Gráfica</h2></div>
+            <div class="card-content">
+              <ul>
+                <li>Especialista em Corel Draw.</li>
+                <li>Criação e fechamento de arquivos para Banners, Panfletos, Outdoors e Adesivos.</li>
+                <li>Experiência com configuração e paleta de cores para impressão em grandes formatos.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio-dev">
+    <div class="content-wrapper">
+      <div class="content-overlay" style="margin: 0 auto 2rem auto; text-align:center; padding: 20px;">
+        <div class="section-title">Desenvolvimento de Sistemas</div>
+        <div class="section-subtitle">Lógica de programação e estudos acadêmicos.</div>
+      </div>
+      <div class="modules-grid">
+        <article class="module-card" data-theme="dev">
+          <div class="card-content-wrapper">
+            <div class="card-header"><div class="card-icon"><i class="fa-solid fa-terminal"></i></div><h2>Linguagem C</h2></div>
+            <div class="card-content">
+              <ul>
+                <li>Linguagem base lecionada na faculdade (ADS).</li>
+                <li>Resolução de algoritmos focados em Operadores e Estruturas de Decisão.</li>
+                <li>Ambiente de desenvolvimento configurado e otimizado via VS Code (Comando Run).</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <article class="module-card" data-theme="dev">
+          <div class="card-content-wrapper">
+            <div class="card-header"><div class="card-icon"><i class="fa-brands fa-python"></i></div><h2>Linguagem Python</h2></div>
+            <div class="card-content">
+              <ul>
+                <li>Estudos iniciados de forma autodidata antes do ingresso na graduação.</li>
+                <li>Foco em automação de tarefas e compreensão de sintaxe moderna.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio-infra">
+    <div class="content-wrapper">
+      <div class="content-overlay" style="margin: 0 auto 2rem auto; text-align:center; padding: 20px;">
+        <div class="section-title">Infraestrutura e Redes</div>
+        <div class="section-subtitle">Suporte técnico e manutenção.</div>
+      </div>
+      <div class="modules-grid">
+        <article class="module-card" data-theme="infra">
+          <div class="card-content-wrapper">
+            <div class="card-header"><div class="card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div><h2>Hardware & Suporte</h2></div>
+            <div class="card-content">
+              <ul>
+                <li>Curso concluído de montagem e manutenção de micros e notebooks.</li>
+                <li>Realização de serviços de formatação e configuração de sistemas operacionais.</li>
+                <li>Conhecimento prático em cabeamento e estruturação de redes locais.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  
+
+  <section id="contato" style="padding: 4rem 2rem;">
+    <div class="content-wrapper" style="text-align: center;">
+      <h2 class="section-title" style="margin-bottom: 2rem; color: var(--color-primary-btn);">Vamos nos conectar?</h2>
+      <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+        
+        <a href="https://www.linkedin.com/in/rdacostamendes" target="_blank" class="btn btn-01" style="background-color: #0077b5;">
+          <i class="fa-brands fa-linkedin"></i> LinkedIn
+        </a>
+        
+        <a href="https://github.com/rdacostamendes" target="_blank" class="btn btn-01" style="background-color: #333;">
+          <i class="fa-brands fa-github"></i> GitHub
+        </a>
+        
+        <a href="mailto:rdacostamendes@gmail.com" class="btn btn-01" style="background-color: var(--color-tertiary-btn);">
+          <i class="fa-solid fa-envelope"></i> E-mail
+        </a>
+        
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Script básico para controle do menu lateral
+    document.addEventListener("DOMContentLoaded", () => {
+      const sections = document.querySelectorAll("section");
+      const navLinks = document.querySelectorAll(".nav-menu a");
+
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          if (pageYOffset >= sectionTop - 200) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove("active");
+          if (link.getAttribute("href").includes(current)) {
+            link.classList.add("active");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
